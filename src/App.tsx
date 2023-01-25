@@ -1,14 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css' 
 import InputField from './components/InputField'
 import TodoList from './components/TodoList';
 import { Todo } from './model';
 
+//get data from localstorage
+const getLocalItems = () => {
+  let todoData = localStorage.getItem('todoData');
+
+  if(todoData){
+    return JSON.parse(todoData)
+  } else{
+    return []
+  }
+}
+
 const App: React.FC = () => {
 
   const [todo, setTodo] = useState<string>('');
   
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(getLocalItems());
+
+  //set data to localstorage
+  useEffect(() => {
+    localStorage.setItem('todoData', JSON.stringify(todos))
+},[todos])
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();

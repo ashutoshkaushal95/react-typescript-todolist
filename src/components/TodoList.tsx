@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Todo } from '../model'
 import SingleTodo from './SingleTodo';
 import './styles.css'
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const TodoList: React.FC<Props> = ({todos, setTodos}) => {
+
   return (
     <div className='todos'>
         {todos.map(todo => (
